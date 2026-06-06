@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+**/.DS_Store
+
+# Source photos (originals) — not used at runtime; optimized copies live in /image
+assets/images/
+assets/*.jpg
+*.heic
+*.HEIC
+
+# Local backups & scratch
+.backup-original/
+_*.html
+
+# Tooling
+.vercel/
+node_modules/

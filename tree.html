@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Memory Tree 🌳 — For Dee</title>
+    <meta name="description" content="A little tree of memories. Tap a branch. Happy Birthday, Deborah." />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blush: #fbeef2; --blush-2: #fdeede;
+        --rose: #b5658a; --rose-soft: #c16d92; --wine: #8b4a63;
+        --gold: #e6b35c; --ink: #4a2733; --bark: #8b6b57;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: "Quicksand", sans-serif; color: var(--ink);
+        background: linear-gradient(180deg, #fff6fb 0%, var(--blush) 40%, #f7e6ee 100%);
+        background-attachment: fixed; overflow-x: hidden; min-height: 100vh;
+      }
+      .petal { position: fixed; top: -8vh; pointer-events: none; z-index: 0; opacity: .55; animation: fall linear infinite; }
+      @keyframes fall { 0%{transform:translateY(-10vh) rotate(0);opacity:0} 10%{opacity:.6} 100%{transform:translateY(110vh) rotate(320deg);opacity:0} }
+
+      .topbar { position: fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; gap:10px; padding:16px 18px; z-index:60; }
+      .topbar a { font-family:"Zen Dots",sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:#fff;
+        background:linear-gradient(135deg,var(--rose),var(--wine)); border:1.5px solid var(--gold); border-radius:999px; padding:9px 15px;
+        box-shadow:0 6px 18px #8b4a6344; transition:transform .25s ease; }
+      .topbar a:hover { transform:translateY(-2px) scale(1.04); }
+
+      .hero { text-align:center; padding:90px 24px 10px; position:relative; z-index:1; }
+      .hero .eyebrow { font-family:"Zen Dots",sans-serif; letter-spacing:.3em; text-transform:uppercase; color:var(--rose); font-size:12px; }
+      .hero h1 { font-family:"Dancing Script",cursive; font-weight:700; font-size:clamp(48px,11vw,120px); color:var(--wine); line-height:1; margin:6px 0; }
+      .hero h1 .gold { color:var(--gold); }
+      .hero p { max-width:560px; margin:10px auto 0; font-size:clamp(14px,2.2vw,18px); }
+      .hero .hint { margin-top:16px; font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:var(--rose); opacity:.8; }
+
+      /* ── the tree ── */
+      .tree { position:relative; z-index:1; max-width:920px; margin:30px auto 40px; padding:20px 0 90px; }
+      .tree::before { /* trunk */
+        content:""; position:absolute; top:0; bottom:70px; left:50%; transform:translateX(-50%);
+        width:10px; border-radius:10px;
+        background:linear-gradient(var(--gold), var(--rose-soft) 30%, var(--wine));
+        box-shadow:0 0 0 2px #ffffff55, 0 8px 30px #8b4a6333;
+      }
+      .tree::after { /* little crown at the top */
+        content:"🌸"; position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:34px;
+        filter:drop-shadow(0 4px 8px #8b4a6344);
+      }
+      .leaf {
+        position:relative; width:50%; padding:30px 40px; display:flex; align-items:center;
+        opacity:0; transform:translateY(30px) scale(.96); transition:opacity .7s ease, transform .7s ease;
+      }
+      .leaf.show { opacity:1; transform:none; }
+      .leaf:nth-child(odd) { left:0; justify-content:flex-end; }
+      .leaf:nth-child(even) { left:50%; justify-content:flex-start; }
+      .branch { /* connector from trunk to bauble */
+        position:absolute; top:50%; height:4px; border-radius:4px;
+        background:linear-gradient(90deg, var(--wine), var(--rose-soft)); opacity:.7;
+      }
+      .leaf:nth-child(odd) .branch { right:24px; width:46px; transform-origin:right; }
+      .leaf:nth-child(even) .branch { left:24px; width:46px; transform-origin:left; }
+
+      .bauble { position:relative; cursor:pointer; text-align:center; }
+      .bauble .ring {
+        width:152px; height:152px; border-radius:50%; overflow:hidden;
+        border:5px solid #fff; box-shadow:0 0 0 3px var(--gold), 0 16px 42px #8b4a6366;
+        transition:transform .35s cubic-bezier(.2,.8,.3,1.4), box-shadow .35s ease;
+        animation:sway 5s ease-in-out infinite;
+        transform-origin:top center;
+      }
+      .bauble:nth-child(3n) .ring { animation-duration:6.2s; }
+      .bauble:nth-child(3n+1) .ring { animation-duration:4.4s; }
+      .bauble .ring img { width:100%; height:100%; object-fit:cover; display:block; }
+      .bauble:hover .ring { transform:scale(1.07) rotate(-1deg); box-shadow:0 0 0 3px var(--gold), 0 22px 50px #8b4a6388; }
+      .bauble .label {
+        display:inline-block; margin-top:16px;
+        font-family:"Zen Dots",sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+        background:linear-gradient(135deg,rgba(181,101,138,.95),rgba(139,74,99,.96));
+        border:2px solid var(--gold); border-radius:999px; padding:8px 16px;
+        box-shadow:0 8px 22px #8b4a6355;
+      }
+      .bauble .stem { /* tiny stem above the bauble */
+        position:absolute; top:-16px; left:50%; transform:translateX(-50%); width:3px; height:16px; background:var(--wine); opacity:.6; border-radius:3px;
+      }
+      @keyframes sway { 0%,100%{transform:rotate(-2.2deg)} 50%{transform:rotate(2.2deg)} }
+
+      /* ── popup ── */
+      .modal { position:fixed; inset:0; z-index:200; display:none; place-content:center; padding:24px;
+        background:rgba(40,20,30,.72); backdrop-filter:blur(8px); }
+      .modal.open { display:grid; animation:fade .3s ease; }
+      @keyframes fade { from{opacity:0} to{opacity:1} }
+      .modal-card { position:relative; max-width:min(560px,92vw); max-height:88vh; margin:auto; border-radius:22px; overflow:hidden;
+        box-shadow:0 30px 80px rgba(0,0,0,.5); transform:scale(.9); animation:pop .4s cubic-bezier(.2,.8,.3,1.4) forwards; }
+      @keyframes pop { to{transform:scale(1)} }
+      .modal-card img { width:100%; height:auto; max-height:88vh; object-fit:cover; display:block; }
+      .modal-card .text { /* floating text on the image */
+        position:absolute; left:0; right:0; bottom:0; padding:70px 26px 26px; color:#fff;
+        background:linear-gradient(to top, rgba(74,39,51,.92) 5%, rgba(139,74,99,.55) 45%, transparent 100%);
+        text-align:center;
+      }
+      .modal-card .text h2 { font-family:"Dancing Script",cursive; font-weight:700; font-size:clamp(30px,6vw,44px); line-height:1; margin-bottom:8px; color:#fff; }
+      .modal-card .text .tag { font-family:"Zen Dots",sans-serif; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+      .modal-card .text p { font-size:clamp(14px,2.4vw,17px); line-height:1.55; max-width:440px; margin:0 auto; }
+      .modal-close { position:absolute; top:14px; right:14px; z-index:2; width:40px; height:40px; border-radius:50%; border:1.5px solid var(--gold);
+        background:rgba(139,74,99,.55); color:#fff; font-size:20px; cursor:pointer; display:grid; place-content:center; transition:transform .2s ease, background .2s ease; }
+      .modal-close:hover { transform:scale(1.1); background:var(--rose); }
+
+      @media (max-width:640px) {
+        .tree::before { left:26px; bottom:50px; }
+        .tree::after { left:26px; }
+        .leaf { width:100%; left:0 !important; justify-content:flex-start !important; padding:18px 10px 18px 46px; }
+        .leaf .branch { left:28px !important; right:auto !important; width:24px !important; }
+        .bauble .ring { width:120px; height:120px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a href="index.html">⟵ Back to the world</a>
+      <a href="timeline.html">Our Story 💕</a>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">For Deborah, with love</div>
+      <h1>Our Memory <span class="gold">Tree</span></h1>
+      <p>Every branch holds a memory of you. Tap one to let it bloom. 🤍</p>
+      <div class="hint">tap a branch ↓</div>
+    </section>
+
+    <main class="tree" id="tree"></main>
+
+    <div class="modal" id="modal">
+      <div class="modal-card" id="modalCard">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+        <img id="modalImg" src="" alt="" />
+        <div class="text">
+          <div class="tag" id="modalTag"></div>
+          <h2 id="modalTitle"></h2>
+          <p id="modalStory"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ── EDIT YOUR MEMORIES HERE 🌳 ── */
+      const memories = [
+        { img:"image/corian-exterior.webp",   title:"The Day You Glowed", tag:"a memory I love",        story:"You walked in like the whole room had been waiting for you. I never said it, but I couldn't look away." },
+        { img:"image/dupont-airguard.webp",   title:"That Smile",         tag:"my favourite view",      story:"This is the smile that turns my worst days around — the one I'd cross any distance to see." },
+        { img:"image/sanrita.webp",           title:"Effortless",         tag:"a memory I love",        story:"You don't even try, and still you light up everything around you. Gold suits you, Dee." },
+        { img:"image/pixila.webp",            title:"Just You",           tag:"close to my heart",      story:"No filter needed — just you, exactly as you are, which is everything to me." },
+        { img:"image/railight.webp",          title:"Little Moments",     tag:"an ordinary perfect day",story:"The quiet, ordinary days with you are the ones I'd never trade. A drink, a laugh, you." },
+        { img:"image/lab77.webp",             title:"City Lights",        tag:"a night to remember",    story:"Out under the lights you shine brighter than all of them — my favourite person in any room." },
+        { img:"image/corian-website.webp",    title:"Soft & Strong",      tag:"who you are",            story:"Kind heart, fierce spirit. You make being gentle look like a superpower." },
+        { img:"image/corian-tool.webp",       title:"Caught Smiling",     tag:"a memory I love",        story:"You, mid-laugh, not knowing the camera caught it. This is how I'll always remember you." },
+        { img:"image/dltal.webp",             title:"My Favourite",       tag:"always you",             story:"Every look, every mood, every version of you — I'm grateful for them all." },
+        { img:"image/aos.webp",               title:"Home",               tag:"home",                   story:"You make the whole world feel like home. Sitting in silence with you is my favourite place." },
+        { img:"image/telkea-voeux-2023.webp", title:"Under the Lights",   tag:"to many more",           story:"Here's to more nights, more lights, and more memories with you. Happy Birthday, Dee." },
+      ];
+
+      const tree = document.getElementById("tree");
+      memories.forEach((m) => {
+        const leaf = document.createElement("div");
+        leaf.className = "leaf";
+        leaf.innerHTML = `
+          <span class="branch"></span>
+          <div class="bauble" data-img="${m.img}" data-title="${m.title}" data-tag="${m.tag}" data-story="${m.story.replace(/"/g,'&quot;')}">
+            <span class="stem"></span>
+            <div class="ring"><img src="${m.img}" alt="${m.title}" loading="lazy" /></div>
+            <div class="label">${m.title}</div>
+          </div>`;
+        tree.appendChild(leaf);
+      });
+
+      /* reveal on scroll */
+      const io = new IntersectionObserver(
+        (es) => es.forEach((e) => { if (e.isIntersecting) e.target.classList.add("show"); }),
+        { threshold: 0.2 }
+      );
+      document.querySelectorAll(".leaf").forEach((el) => io.observe(el));
+
+      /* popup */
+      const modal = document.getElementById("modal");
+      const mImg = document.getElementById("modalImg");
+      const mTitle = document.getElementById("modalTitle");
+      const mTag = document.getElementById("modalTag");
+      const mStory = document.getElementById("modalStory");
+      function openModal(b) {
+        mImg.src = b.dataset.img; mImg.alt = b.dataset.title;
+        mTitle.textContent = b.dataset.title;
+        mTag.textContent = b.dataset.tag;
+        mStory.innerHTML = b.dataset.story;
+        modal.classList.add("open");
+        document.getElementById("modalCard").style.animation = "none";
+        void document.getElementById("modalCard").offsetWidth;
+        document.getElementById("modalCard").style.animation = "";
+      }
+      function closeModal() { modal.classList.remove("open"); }
+      tree.addEventListener("click", (e) => {
+        const b = e.target.closest(".bauble");
+        if (b) openModal(b);
+      });
+      document.getElementById("modalClose").addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+      /* petals */
+      const petals = ["🤍","💕","🌸","✨","🌿"];
+      setInterval(() => {
+        const s = document.createElement("div");
+        s.className = "petal"; s.textContent = petals[(Math.random()*petals.length)|0];
+        s.style.left = Math.random()*100+"vw"; s.style.fontSize = 12+Math.random()*16+"px";
+        const d = 7+Math.random()*7; s.style.animationDuration = d+"s";
+        document.body.appendChild(s); setTimeout(() => s.remove(), d*1000);
+      }, 950);
+    </script>
+  </body>
+</html>

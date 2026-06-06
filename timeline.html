@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Story 💕 — For Dee</title>
+    <meta name="description" content="Our story, one moment at a time. Happy Birthday, Deborah." />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blush: #fbeef2;
+        --blush-2: #fdeede;
+        --rose: #b5658a;
+        --rose-soft: #c16d92;
+        --wine: #8b4a63;
+        --gold: #e6b35c;
+        --ink: #4a2733;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: "Quicksand", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(160deg, var(--blush) 0%, var(--blush-2) 45%, #f7e6ee 100%);
+        background-attachment: fixed;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      /* floating soft petals */
+      .petal {
+        position: fixed;
+        top: -8vh;
+        font-size: 18px;
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: 0;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.6; }
+        100% { transform: translateY(110vh) rotate(320deg); opacity: 0; }
+      }
+
+      /* top bar */
+      .topbar {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 16px 22px;
+        z-index: 50;
+      }
+      .topbar a, .topbar button {
+        font-family: "Zen Dots", sans-serif;
+        font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+        text-decoration: none; color: #fff; cursor: pointer;
+        background: linear-gradient(135deg, var(--rose), var(--wine));
+        border: 1.5px solid var(--gold); border-radius: 999px;
+        padding: 9px 16px; box-shadow: 0 6px 18px #8b4a6344;
+        transition: transform .25s ease, box-shadow .25s ease;
+      }
+      .topbar a:hover, .topbar button:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 10px 24px #8b4a6366; }
+
+      /* hero */
+      .hero {
+        min-height: 100vh;
+        display: grid; place-content: center; text-align: center;
+        position: relative; z-index: 1; padding: 0 24px;
+      }
+      .hero .eyebrow {
+        font-family: "Zen Dots", sans-serif; letter-spacing: 0.3em;
+        text-transform: uppercase; color: var(--rose); font-size: 13px;
+        opacity: 0; animation: rise 900ms ease 200ms forwards;
+      }
+      .hero h1 {
+        font-family: "Dancing Script", cursive; font-weight: 700;
+        font-size: clamp(56px, 13vw, 150px); line-height: 1;
+        color: var(--wine); margin: 10px 0 6px;
+        opacity: 0; animation: rise 1000ms ease 450ms forwards;
+      }
+      .hero h1 .gold { color: var(--gold); }
+      .hero p {
+        font-size: clamp(15px, 2.4vw, 20px); max-width: 620px; margin: 14px auto 0;
+        opacity: 0; animation: rise 1000ms ease 750ms forwards;
+      }
+      .hero .scroll-hint {
+        margin-top: 42px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--rose); opacity: 0; animation: rise 1000ms ease 1050ms forwards, bob 2.2s ease-in-out 2s infinite;
+      }
+      @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+      /* timeline */
+      .timeline {
+        position: relative; z-index: 1;
+        max-width: 1040px; margin: 0 auto; padding: 30px 20px 60px;
+      }
+      .timeline::before {
+        content: ""; position: absolute; top: 0; bottom: 120px; left: 50%;
+        width: 3px; transform: translateX(-50%);
+        background: linear-gradient(var(--gold), var(--rose), var(--wine));
+        border-radius: 3px; opacity: 0.5;
+      }
+      .moment {
+        position: relative; width: 50%; padding: 26px 44px;
+        opacity: 0; transform: translateY(40px);
+        transition: opacity .8s ease, transform .8s ease;
+      }
+      .moment.show { opacity: 1; transform: translateY(0); }
+      .moment:nth-child(odd) { left: 0; text-align: right; }
+      .moment:nth-child(even) { left: 50%; text-align: left; }
+      .moment::after { /* dot on the line */
+        content: ""; position: absolute; top: 46px;
+        width: 18px; height: 18px; border-radius: 50%;
+        background: var(--gold); border: 3px solid #fff; box-shadow: 0 0 0 3px var(--rose);
+      }
+      .moment:nth-child(odd)::after { right: -9px; }
+      .moment:nth-child(even)::after { left: -9px; }
+
+      .card {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(6px);
+        border: 1px solid #ffffffcc; border-radius: 20px;
+        box-shadow: 0 14px 40px #8b4a6322; overflow: hidden;
+        display: inline-block; text-align: left; max-width: 420px;
+      }
+      .card img { width: 100%; display: block; aspect-ratio: 4/5; object-fit: cover; }
+      .card .body { padding: 18px 20px 22px; }
+      .card .date {
+        font-family: "Zen Dots", sans-serif; font-size: 10px; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+      }
+      .card h3 {
+        font-family: "Dancing Script", cursive; font-weight: 700;
+        font-size: 30px; color: var(--wine); line-height: 1.05; margin-bottom: 8px;
+      }
+      .card p { font-size: 15px; line-height: 1.6; color: var(--ink); }
+
+      /* closing */
+      .finale {
+        position: relative; z-index: 1; text-align: center;
+        padding: 40px 24px 120px; max-width: 700px; margin: 0 auto;
+        opacity: 0; transform: translateY(40px);
+        transition: opacity .9s ease, transform .9s ease;
+      }
+      .finale.show { opacity: 1; transform: translateY(0); }
+      .finale .cake { font-size: 64px; animation: bob 2.4s ease-in-out infinite; }
+      .finale h2 {
+        font-family: "Dancing Script", cursive; font-weight: 700;
+        font-size: clamp(40px, 9vw, 84px); color: var(--wine); margin: 8px 0 14px;
+      }
+      .finale p { font-size: 17px; line-height: 1.7; margin-bottom: 10px; }
+      .finale .sign { font-family: "Dancing Script", cursive; font-size: 30px; color: var(--rose); margin-top: 16px; }
+      .finale .back {
+        display: inline-block; margin-top: 28px;
+        font-family: "Zen Dots", sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+        text-decoration: none; color: #fff;
+        background: linear-gradient(135deg, var(--rose), var(--wine));
+        border: 1.5px solid var(--gold); border-radius: 999px; padding: 12px 22px;
+        box-shadow: 0 8px 22px #8b4a6355; transition: transform .25s ease;
+      }
+      .finale .back:hover { transform: translateY(-2px) scale(1.04); }
+
+      @media screen and (max-width: 720px) {
+        .timeline::before { left: 22px; }
+        .moment { width: 100%; left: 0 !important; text-align: left !important; padding: 18px 8px 18px 46px; }
+        .moment::after { left: 13px !important; right: auto !important; top: 40px; }
+        .card { max-width: 100%; display: block; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a href="index.html">⟵ Back to the world</a>
+      <button id="musicBtn" aria-label="Toggle music">♫ Play our song</button>
+    </div>
+
+    <audio id="bgm" loop preload="none" src="sounds/theme.m4a"></audio>
+
+    <section class="hero">
+      <div class="eyebrow">For Deborah, with love</div>
+      <h1>Our <span class="gold">Story</span></h1>
+      <p>
+        Every moment with you has been worth keeping. So I gathered a few of them here —
+        one little memory at a time. Happy Birthday, Dee. 🤍
+      </p>
+      <div class="scroll-hint">scroll to begin ↓</div>
+    </section>
+
+    <main class="timeline" id="timeline"></main>
+
+    <section class="finale" id="finale">
+      <div class="cake">🎂</div>
+      <h2>Happy Birthday, Dee</h2>
+      <p>
+        Thank you for every laugh, every late-night talk, and every ordinary day made better
+        just because you were in it.
+      </p>
+      <p>Here's to our story — and to all the chapters still to come. 💕</p>
+      <div class="sign">With love, always 🤍</div>
+      <a class="back" href="index.html">Take me back to your world ⟶</a>
+    </section>
+
+    <script>
+      /* ───────────────────────────────────────────────────────────
+         EDIT YOUR STORY HERE 💕
+         Change the date / title / text / img for each moment.
+         Photos live in /image/story/ — drop new ones in and update "img".
+      ─────────────────────────────────────────────────────────── */
+      const moments = [
+        {
+          date: "where it began",
+          title: "When We First Met",
+          text: "I still remember it clearly — the day everything quietly changed. I didn't know it yet, but my favourite story was just starting.",
+          img: "image/studio/tl0.webp",
+        },
+        {
+          date: "the first words",
+          title: "Our First Conversation",
+          text: "We talked for what felt like minutes but was actually hours. I went to sleep smiling that night, and I've been smiling ever since.",
+          img: "image/story/IMG_4173.webp",
+        },
+        {
+          date: "the first date",
+          title: "The First Date",
+          text: "Nervous, happy, and trying to play it cool. You made it the easiest, warmest evening — and I never wanted it to end.",
+          img: "image/studio/tl2.webp",
+        },
+        {
+          date: "the little things",
+          title: "That Laugh of Yours",
+          text: "The sound I'd recognise anywhere. The one that turns any room — and any bad day — completely around.",
+          img: "image/story/IMG_4200.webp",
+        },
+        {
+          date: "us, lately",
+          title: "Every Little Moment",
+          text: "The quiet days are my favourite. Just us, no plans, no rush — exactly where I always want to be.",
+          img: "image/studio/tl4.webp",
+        },
+        {
+          date: "city nights",
+          title: "Under the Lights",
+          text: "Out in the world you somehow outshine all of it. My favourite person, in any room, on any night.",
+          img: "image/story/IMG_4916.webp",
+        },
+        {
+          date: "always",
+          title: "Just You",
+          text: "Through every season and every mood, it's always been you. I'm so grateful it's you.",
+          img: "image/studio/tl6.webp",
+        },
+      ];
+
+      const tl = document.getElementById("timeline");
+      moments.forEach((m) => {
+        const el = document.createElement("article");
+        el.className = "moment";
+        el.innerHTML = `
+          <div class="card">
+            <img src="${m.img}" alt="${m.title}" loading="lazy" />
+            <div class="body">
+              <div class="date">${m.date}</div>
+              <h3>${m.title}</h3>
+              <p>${m.text}</p>
+            </div>
+          </div>`;
+        tl.appendChild(el);
+      });
+
+      /* scroll reveal */
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("show"); }),
+        { threshold: 0.18 }
+      );
+      document.querySelectorAll(".moment").forEach((el) => io.observe(el));
+      io.observe(document.getElementById("finale"));
+
+      /* soft falling petals */
+      const petals = ["🤍", "💕", "🌸", "✨", "💗"];
+      function spawnPetal() {
+        const s = document.createElement("div");
+        s.className = "petal";
+        s.textContent = petals[Math.floor(Math.random() * petals.length)];
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.fontSize = 12 + Math.random() * 18 + "px";
+        const dur = 7 + Math.random() * 7;
+        s.style.animationDuration = dur + "s";
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), dur * 1000);
+      }
+      setInterval(spawnPetal, 900);
+
+      /* music toggle (browsers block autoplay until a click) */
+      const bgm = document.getElementById("bgm");
+      const btn = document.getElementById("musicBtn");
+      bgm.volume = 0.35;
+      btn.addEventListener("click", () => {
+        if (bgm.paused) { bgm.play(); btn.textContent = "❚❚ Pause"; }
+        else { bgm.pause(); btn.textContent = "♫ Play our song"; }
+      });
+    </script>
+  </body>
+</html>
