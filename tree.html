@@ -125,7 +125,9 @@
     <div class="topbar">
       <a href="index.html">⟵ Back to the world</a>
       <a href="timeline.html">Our Story 💕</a>
+      <a href="javascript:void(0)" id="musicBtn">♫ Play music</a>
     </div>
+    <audio id="bgm" loop preload="none" src="sounds/music/Brown_Joel_-_Ogechi_Remix_feat._Davido.mp3"></audio>
 
     <section class="hero">
       <div class="eyebrow">For Deborah, with love</div>
@@ -219,6 +221,15 @@
         const d = 7+Math.random()*7; s.style.animationDuration = d+"s";
         document.body.appendChild(s); setTimeout(() => s.remove(), d*1000);
       }, 950);
+
+      /* music toggle */
+      const bgm = document.getElementById("bgm");
+      const musicBtn = document.getElementById("musicBtn");
+      bgm.volume = 0.4;
+      musicBtn.addEventListener("click", () => {
+        if (bgm.paused) { bgm.play(); musicBtn.textContent = "❚❚ Pause"; }
+        else { bgm.pause(); musicBtn.textContent = "♫ Play music"; }
+      });
     </script>
   </body>
 </html>

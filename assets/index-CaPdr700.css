@@ -23,3 +23,6 @@
 
 /* Birthday: smaller, un-stretched "Hey Dee!" heading */
 #root .fr-text .fr-text-content h1{font-size:42px!important;transform:none!important}
+
+/* Birthday: remove the burger menu button */
+#root .ui-nav>aside>div.burger-wrapper{display:none!important}
