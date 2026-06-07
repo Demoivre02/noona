@@ -13,3 +13,13 @@
 #root .contactButton>div{background:linear-gradient(135deg,#b5658a,#8b4a63)!important;border:2px solid #e6b35c!important;border-radius:16px!important;box-shadow:0 14px 38px rgba(139,74,99,.5)}
 #root .contactButton>div>img{width:128px!important;height:160px!important;flex:0 0 140px!important;object-fit:cover;border-radius:14px;border:3px solid #fff;box-shadow:0 0 0 2px #e6b35c,0 10px 26px rgba(139,74,99,.5);transform:translateY(-52px)}
 #root .contactButton>div>p{font-family:"Dancing Script",cursive!important;font-weight:700;font-size:1.6rem!important;letter-spacing:.01em;color:#fff;text-shadow:0 2px 6px rgba(74,39,51,.45);padding-right:14px}
+
+/* Birthday: prettier portfolio detail card */
+#root .portfolio-item-detail{background:linear-gradient(160deg,#c16d92,#8b4a63) content-box!important;box-shadow:inset 0 0 0 4px #e6b35c}
+#root .portfolio-item-detail>h3{font-size:x-large!important;letter-spacing:.14em}
+#root .portfolio-item-detail>p{font-size:1rem!important;line-height:1.5}
+#root .portfolio-item-detail>p.role{font-family:"Dancing Script",cursive!important;font-size:1.7rem!important;color:#ffe9c2!important;font-weight:700}
+#root .portfolio-item-detail>p.role:after{background-color:#e6b35c!important;height:2px!important}
+
+/* Birthday: smaller, un-stretched "Hey Dee!" heading */
+#root .fr-text .fr-text-content h1{font-size:42px!important;transform:none!important}
