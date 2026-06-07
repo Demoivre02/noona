@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make a Wish ✨ — For Dee</title>
+    <meta name="description" content="Write your birthday wish and let it float to the sky. Happy Birthday, Deborah." />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Dots&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --rose:#b5658a; --rose-soft:#c16d92; --wine:#8b4a63; --gold:#e6b35c; --ink:#4a2733;
+      }
+      * { box-sizing:border-box; margin:0; padding:0; }
+      body {
+        font-family:"Quicksand",sans-serif; color:#fff; min-height:100vh; overflow:hidden;
+        background:linear-gradient(180deg,#3a2c5e 0%,#6b4a7a 32%,#b5658a 62%,#f3b6a6 86%,#fbe6cf 100%);
+        position:relative;
+      }
+      /* stars */
+      .star { position:fixed; width:3px; height:3px; background:#fff; border-radius:50%; opacity:.8;
+        animation:tw 2.5s ease-in-out infinite; box-shadow:0 0 6px #fff; pointer-events:none; }
+      @keyframes tw { 0%,100%{opacity:.25;transform:scale(.7)} 50%{opacity:1;transform:scale(1.2)} }
+      /* soft clouds */
+      .cloud { position:fixed; font-size:70px; opacity:.18; pointer-events:none; animation:drift linear infinite; }
+      @keyframes drift { from{transform:translateX(-20vw)} to{transform:translateX(120vw)} }
+
+      .topbar { position:fixed; top:0; left:0; width:100%; display:flex; gap:10px; padding:16px 18px; z-index:60; }
+      .topbar a { font-family:"Zen Dots",sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+        text-decoration:none; color:#fff; background:linear-gradient(135deg,var(--rose),var(--wine));
+        border:1.5px solid var(--gold); border-radius:999px; padding:9px 15px; box-shadow:0 6px 18px #00000033; }
+      .topbar a:hover { transform:translateY(-2px) scale(1.04); }
+
+      .wrap { position:relative; z-index:5; min-height:100vh; display:grid; place-content:center; text-align:center; padding:24px; }
+      .panel { max-width:540px; transition:opacity .6s ease, transform .6s ease; }
+      .panel.gone { opacity:0; transform:scale(.92) translateY(-20px); pointer-events:none; }
+      .eyebrow { font-family:"Zen Dots",sans-serif; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); font-size:12px; }
+      h1 { font-family:"Dancing Script",cursive; font-weight:700; font-size:clamp(52px,12vw,110px); line-height:1; margin:6px 0 4px;
+        color:#fff; text-shadow:0 2px 24px rgba(139,74,99,.6); }
+      .sub { font-size:clamp(14px,2.4vw,18px); margin-bottom:22px; opacity:.95; }
+      textarea {
+        width:100%; min-height:120px; resize:none; border-radius:18px; border:2px solid var(--gold);
+        background:rgba(255,255,255,.14); backdrop-filter:blur(6px); color:#fff; padding:16px 18px;
+        font-family:"Quicksand",sans-serif; font-size:17px; line-height:1.5; outline:none; box-shadow:0 12px 40px rgba(0,0,0,.25); }
+      textarea::placeholder { color:rgba(255,255,255,.7); }
+      .send {
+        margin-top:18px; cursor:pointer; font-family:"Zen Dots",sans-serif; font-size:13px; letter-spacing:.1em; text-transform:uppercase;
+        color:#fff; background:linear-gradient(135deg,var(--rose),var(--wine)); border:2px solid var(--gold);
+        border-radius:999px; padding:14px 28px; box-shadow:0 12px 34px rgba(139,74,99,.5); transition:transform .25s ease, box-shadow .25s ease; }
+      .send:hover { transform:translateY(-2px) scale(1.04); box-shadow:0 16px 44px rgba(139,74,99,.6); }
+
+      /* flying wish */
+      .flying { position:fixed; left:50%; bottom:24vh; transform:translateX(-50%); z-index:40; display:none;
+        flex-direction:column; align-items:center; gap:6px; pointer-events:none; }
+      .flying.go { display:flex; animation:ascend 6s cubic-bezier(.4,0,.5,1) forwards; }
+      @keyframes ascend {
+        0%   { bottom:24vh; opacity:0; transform:translateX(-50%) scale(.9); }
+        12%  { opacity:1; transform:translateX(-50%) scale(1); }
+        70%  { opacity:1; }
+        100% { bottom:118vh; opacity:0; transform:translateX(-50%) scale(.55); }
+      }
+      .angel { font-size:64px; filter:drop-shadow(0 0 16px #fff7); animation:flutter 1.1s ease-in-out infinite; }
+      @keyframes flutter { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-6px) rotate(3deg)} }
+      .note {
+        max-width:300px; font-family:"Dancing Script",cursive; font-weight:700; font-size:24px; color:var(--wine);
+        background:rgba(255,255,255,.92); border:2px solid var(--gold); border-radius:16px; padding:12px 18px;
+        box-shadow:0 14px 40px rgba(0,0,0,.3); text-wrap:balance; }
+      .spark { position:fixed; z-index:39; font-size:22px; pointer-events:none; opacity:0; }
+      .spark.go { animation:sparkle 1.4s ease-out forwards; }
+      @keyframes sparkle { 0%{opacity:0;transform:scale(.4)} 30%{opacity:1} 100%{opacity:0;transform:scale(1.6) translateY(-30px)} }
+
+      .done { position:fixed; inset:0; z-index:50; display:none; place-content:center; text-align:center; padding:24px; }
+      .done.show { display:grid; animation:fadein 1s ease forwards; }
+      @keyframes fadein { from{opacity:0} to{opacity:1} }
+      .done .big { font-family:"Dancing Script",cursive; font-weight:700; font-size:clamp(40px,9vw,86px); color:#fff; text-shadow:0 2px 24px rgba(139,74,99,.6); }
+      .done p { font-size:clamp(15px,2.6vw,19px); margin-top:10px; max-width:460px; margin-left:auto; margin-right:auto; }
+      .done .again { margin-top:26px; display:inline-block; cursor:pointer; font-family:"Zen Dots",sans-serif; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+        color:#fff; background:linear-gradient(135deg,var(--rose),var(--wine)); border:2px solid var(--gold); border-radius:999px; padding:12px 22px; text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a href="index.html">⟵ Back to the world</a>
+      <a href="tree.html">🌳 Memory Tree</a>
+    </div>
+
+    <div class="wrap">
+      <div class="panel" id="panel">
+        <div class="eyebrow">Happy Birthday, Dee</div>
+        <h1>Make a Wish</h1>
+        <p class="sub">Close your eyes, type your wish, and let it go — an angel is waiting to carry it to the sky. ✨</p>
+        <textarea id="wish" maxlength="240" placeholder="I wish for…"></textarea>
+        <button class="send" id="send">Release my wish 🕊️</button>
+      </div>
+    </div>
+
+    <div class="flying" id="flying">
+      <div class="angel">👼</div>
+      <div class="note" id="note">I wish for…</div>
+    </div>
+
+    <div class="done" id="done">
+      <div>
+        <div class="big">Your wish is on its way 🤍</div>
+        <p>An angel caught it and carried it up to the stars. May it all come true, Dee. Happy Birthday. 🎂</p>
+        <a class="again" id="again">Make another wish ✨</a>
+      </div>
+    </div>
+
+    <script>
+      /* stars + clouds */
+      for (let i = 0; i < 70; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 70 + "vh";
+        s.style.animationDelay = Math.random() * 2.5 + "s";
+        document.body.appendChild(s);
+      }
+      ["☁️","☁️","☁️"].forEach((c, i) => {
+        const el = document.createElement("div");
+        el.className = "cloud"; el.textContent = c;
+        el.style.top = 8 + i * 14 + "vh";
+        el.style.animationDuration = 40 + i * 18 + "s";
+        el.style.animationDelay = -i * 12 + "s";
+        document.body.appendChild(el);
+      });
+
+      const panel = document.getElementById("panel");
+      const wish = document.getElementById("wish");
+      const flying = document.getElementById("flying");
+      const note = document.getElementById("note");
+      const done = document.getElementById("done");
+
+      function sparkleBurst() {
+        for (let i = 0; i < 8; i++) {
+          const sp = document.createElement("div");
+          sp.className = "spark"; sp.textContent = ["✨","🌟","⭐","💫"][i % 4];
+          sp.style.left = 40 + Math.random() * 20 + "vw";
+          sp.style.top = 38 + Math.random() * 20 + "vh";
+          document.body.appendChild(sp);
+          requestAnimationFrame(() => sp.classList.add("go"));
+          setTimeout(() => sp.remove(), 1500);
+        }
+      }
+
+      function release() {
+        const text = (wish.value || "").trim();
+        note.textContent = text ? text : "A little birthday wish 🤍";
+        panel.classList.add("gone");
+        setTimeout(() => {
+          flying.classList.add("go");
+          setTimeout(sparkleBurst, 1600);   // angel "catches" it mid-flight
+          setTimeout(() => done.classList.add("show"), 4200);
+        }, 500);
+      }
+      document.getElementById("send").addEventListener("click", release);
+      document.getElementById("again").addEventListener("click", () => location.reload());
+    </script>
+  </body>
+</html>

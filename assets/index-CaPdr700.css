@@ -26,3 +26,8 @@
 
 /* Birthday: remove the burger menu button */
 #root .ui-nav>aside>div.burger-wrapper{display:none!important}
+
+/* Birthday: remove cinematic black bars (top/bottom) */
+#root>.cinematic-stripe{display:none!important}
+/* Birthday: keep the scroll cursor visible (it was auto-hiding) */
+html:not(.mobile) #root .cursor-scroll.cursor-scroll--hidden{clip-path:inset(0 0 0 0)!important;transform:translate(25px)!important}
